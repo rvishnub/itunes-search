@@ -1,3 +1,10 @@
+$(document).ready(function(){
+    $("button").click(function(){
+		performSearch();
+    });
+});
+
+/* to see list, not table */
 function displayTracks(data)
 {
 	resultList = data.results;
@@ -15,28 +22,32 @@ function displayTracks(data)
 	document.getElementById("songlist").innerHTML = songList;
 }
 
-function displayAllInfo(data)
-{
-	console.log(data.results);
-	displayTracks(data);
-}
-
 function performSearch()
 {
 	var terms = jQuery('#term').val();
-	alert(terms);
+	if (terms==""){
+		alert("Please enter a valid search item.");
+	};
 	$.ajax({
 	"url": "https://itunes.apple.com/search?", 
 	"type": "GET",
 	"dataType": "JSONP",
 	"data": {"term": terms},
-	"success": function(data) {displayTable(data.results)},})
+	"success": function(data) {
+		console.log(data);
+		$('#pagination-container').pagination({
+		dataSource: data.results,
+		callback: function(data, pagination) {
+        var html = displayTable(data);
+        $('#data-container').html(html);
+    }
+})},})
 }
+/*lines 36-40 from pagination plugin from http://paginationjs.com/*/
 
 function performNapsterSearch()
 {
 	var terms = jQuery('#term').val();
-	alert(terms);
 	$.ajax({
 	"url": "https://api.napster.com/v2.0/search?", 
 	"type": "GET",
@@ -45,34 +56,38 @@ function performNapsterSearch()
 	"success": function(data) {displayTable(data.results)},})
 }
 
-
-
-function displayTable(array)
+function reloadPage() 
 {
-	divText="";
-    for (key in array)
-    {
-		artistName=array[key].artistName;
-		collectionName = array[key].collectionName;
-		trackName=array[key].trackName;
-		trackPrice=array[key].trackPrice;
-		previewUrl=array[key].previewUrl;
-		divText = divText+"<table border=1><tr><th>" + artistName + "</th><th>"+ collectionName+"</th><th>"+ "<a href = '"+previewUrl+"'>"+trackName+"</a>"+"</th><th>" + trackPrice+ "</th></tr>"
-		
-	}
-    document.getElementById("resultsTable").innerHTML= divText;
+    location.reload();
 }
 
-
-$(document).ready(function(){
-    $("colorblock").click(function(){
-        var div = $("div");
-        div.animate({height: '300px', opacity: '0.4'}, "slow");
-        div.animate({width: '300px', opacity: '0.8'}, "slow");
-        div.animate({height: '100px', opacity: '0.4'}, "slow");
-        div.animate({width: '100px', opacity: '0.8'}, "slow");
+function displayTable(data) 
+{
+    var divText = "";
+	$.each(data, function(index, item){
+		if (item.trackPrice <0)
+		{
+			item.trackPrice = "N/A";
+		}
+	});
+    $.each(data, function(index, item){
+        divText += "<table border=1><tr><th>" + "<img src='"+item.artworkUrl60+"'>" +"</th><th>" + item.artistName + "</th><th>"+ item.collectionName+"</th><th>"+ "<a href = '"+item.previewUrl+"'>"+item.trackName+"</a>"+"</th><th style='text-align:center'>" + item.trackPrice+ "</th></tr>";
     });
-});
+    divText += "</table>";
+    return divText;
+}
+
+/* function displayAlbumTable(data) 
+{
+	$.each(data, function(index, item){
+		divAlbum += "<table border=1><tr><th>" + "<a href = '"+item.collectionViewUrl+"'><img src='"+item.artworkUrl100+"'></a>" +"</th><th>"+item.collectionName++"</th><th style='text-align:center'>" + item.collectionPrice+ "</th></tr>";
+		});
+    divAlbum += "</table>";
+    $('#data-container2').html(divAlbum);
+    }
+})} */
+
+
 
 
 

@@ -30,6 +30,10 @@
         <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
     <![endif]-->
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+	
+	<!-- Pagination plugin from paginationjs.com -->
+	<link href="pagination.css" rel="stylesheet">
+	
 </head>
 
 <body>
@@ -156,22 +160,22 @@
                         <a href="index.html"><i class="fa fa-fw fa-dashboard"></i> Dashboard</a>
                     </li>
                     <li>
-                        <a href="BuyMusic.html"><i class="fa fa-fw fa-bar-chart-o"></i> Buy Music</a>
+                        <a href="BuyMusic.html"><i class="fa fa-fw fa-shopping-cart"></i> Purchase Music</a>
                     </li>
                     <li>
-                        <a href="ViewAlbums.html"><i class="fa fa-fw fa-edit"></i> View Albums</a>
+                        <a href="ViewAlbums.html"><i class="fa fa-fw fa-caret-square-o-right"></i> View Albums</a>
                     </li>
                     <li>
-                        <a href="SocialMedia.html"><i class="fa fa-fw fa-desktop"></i> Social Media</a>
+                        <a href="SocialMedia.html"><i class="fa fa-fw fa-comments"></i> Social Media</a>
                     </li>
                     <li>
-                        <a href="Contact.html"><i class="fa fa-fw fa-wrench"></i> Contact</a>
+                        <a href="Contact.html"><i class="fa fa-fw fa-phone-square"></i> Contact</a>
                     </li>
 					                    <li>
-                        <a href="http://www.apple.com/itunes/"><i class="fa fa-fw fa-table"></i> iTunes</a>
+                        <a href="http://www.apple.com/itunes/"><i class="fa fa-fw fa-headphones"></i> iTunes</a>
                     </li>
                     <li>
-                        <a href="Legal.html"><i class="fa fa-fw fa-file"></i> Legal</a>
+                        <a href="Legal.html"><i class="fa fa-fw fa-legal"></i> Legal</a>
                     </li>
                 </ul>
             </div>
@@ -220,7 +224,7 @@
                                     </div>
                                 </div>
                             </div>
-                            <a href="#">
+                            <a href="index.html">
                                 <div class="panel-footer">
                                     <span class="pull-left">View Details</span>
                                     <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
@@ -241,7 +245,7 @@
                                     </div>
                                 </div>
                             </div>
-                            <a href="#">
+                            <a href="BuyMusic.html">
                                 <div class="panel-footer">
                                     <span class="pull-left">View Details</span>
                                     <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
@@ -262,7 +266,7 @@
                                     </div>
                                 </div>
                             </div>
-                            <a href="#">
+                            <a href="ViewAlbums.html">
                                 <div class="panel-footer">
                                     <span class="pull-left">View Details</span>
                                     <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
@@ -283,7 +287,7 @@
                                     </div>
                                 </div>
                             </div>
-                            <a href="#">
+                            <a href="SocialMedia.html">
                                 <div class="panel-footer">
                                     <span class="pull-left">View Details</span>
                                     <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
@@ -302,35 +306,35 @@
 		<input class="form-control" placeholder="Enter search terms" input type="text" id="term" value="">
 	</div>
 	<button type="button" class="btn btn-default" onclick="performSearch()">Send</button>
-	<button type="reset" class="btn btn-default">Reset Button</button>
+	<button type="reset" class="btn btn-default" onclick="reloadPage()">Reset</button>
 </form>
 <br>
 <br>
 <br>
 
+
                 <div class="row">
                     <div class="col-lg-12">
                         <div class="panel panel-default">
                             <div class="panel-heading">
-                                <h3 class="panel-title"><i class="fa fa-money fa-fw"></i> Search Results</h3>
+                                <h3 class="panel-title"><i class="fa fa-music fa-fw"></i> Search Results</h3>
                             </div>
                             <div class="panel-body">
                                 <div class="table-responsive">
                                     <table class="table table-bordered table-hover table-striped">
                                         <thead>
                                             <tr>
-                                                <th>Artist</th>
-                                                <th>Album</th>
-                                                <th>Track Title</th>
-                                                <th>Amount (USD)</th>
+																																			<th style="text-align:center">Art</th>
+                                                <th style="text-align:center">Artist</th>
+                                                <th style="text-align:center">Album</th>
+                                                <th style="text-align:center">Track Title</th>
+                                                <th style="text-align:center">Amount(USD)</th>
                                             </tr>
                                         </thead>
-                                        <tbody id="resultsTable">
-                                        </tbody>
+										<tbody id="data-container" ></tbody>
+
                                     </table>
-                                </div>
-                                <div class="text-right">
-                                    <a href="#">View All Transactions <i class="fa fa-arrow-circle-right"></i></a>
+										<div id="pagination-container"></div>
                                 </div>
                             </div>
 
@@ -338,6 +342,15 @@
                     </div>
                 </div>
                 <!-- /.row -->
+<!-- <div class="container">
+  <ul class="pagination">
+    <li><a href="#">1</a></li>
+    <li><a href="#">2</a></li>
+    <li><a href="#">3</a></li>
+    <li><a href="#">4</a></li>
+    <li><a href="#">5</a></li>
+  </ul>
+</div> -->
             </div>
             <!-- /.container-fluid -->
 
@@ -354,11 +367,12 @@
     <script src="js/bootstrap.min.js"></script>
 
     <!-- Morris Charts JavaScript -->
-    <script src="js/plugins/morris/raphael.min.js"></script>
+<!--     <script src="js/plugins/morris/raphael.min.js"></script>
     <script src="js/plugins/morris/morris.min.js"></script>
-    <script src="js/plugins/morris/morris-data.js"></script>
+    <script src="js/plugins/morris/morris-data.js"></script> -->
 
 	<script src="javascript.js"></script>
+	<script src="pagination.js"></script>
 </body>
 
 </html>
