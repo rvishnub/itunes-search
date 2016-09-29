@@ -1,35 +1,17 @@
 $(document).ready(function(){
     $("button").click(function(){
-		performSearch();
+		performVideoSearch();
     });
 });
 
-/* to see list, not table */
-function displayTracks(data)
-{
-	resultList = data.results;
-	songList = "";
-
-	for (key in resultList) 
-	{
-		musicInfo = resultList[key];
-		for (keyitem in musicInfo)
-		{
-			songList = songList + keyitem + ":  "+ musicInfo[keyitem] + "<br>";
-		}
-		songList = songList+"<br><br>";
-	}
-	document.getElementById("songlist").innerHTML = songList;
-}
-
-function performSearch()
+function performVideoSearch()
 {
 	var terms = jQuery('#term').val();
 	if (terms==""){
 		alert("Please enter a valid search item.");
 	};
 	$.ajax({
-	"url": "https://itunes.apple.com/search?", 
+	"url": "https://www.googleapis.com/youtube/v3/search?key=AIzaSyA5_5cy7lwaLAt9wwiWZAYdVE1bJizhDPE&part=snippet", 
 	"type": "GET",
 	"dataType": "JSONP",
 	"data": {"term": terms},
@@ -76,17 +58,6 @@ function displayTable(data)
     divText += "</table>";
     return divText;
 }
-
-/* function displayAlbumTable(data) 
-{
-	$.each(data, function(index, item){
-		divAlbum += "<table border=1><tr><th>" + "<a href = '"+item.collectionViewUrl+"'><img src='"+item.artworkUrl100+"'></a>" +"</th><th>"+item.collectionName++"</th><th style='text-align:center'>" + item.collectionPrice+ "</th></tr>";
-		});
-    divAlbum += "</table>";
-    $('#data-container2').html(divAlbum);
-    }
-})} */
-
 
 
 

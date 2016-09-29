@@ -1,0 +1,5 @@
+google api key
+AIzaSyA5_5cy7lwaLAt9wwiWZAYdVE1bJizhDPE
+
+https://www.googleapis.com/youtube/v3/videos?id=7lCDEYXw3mM&key=AIzaSyA5_5cy7lwaLAt9wwiWZAYdVE1bJizhDPE
+     &part=snippet,contentDetails,statistics,status
