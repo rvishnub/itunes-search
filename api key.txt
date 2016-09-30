@@ -1,5 +1,23 @@
-google api key
-AIzaSyA5_5cy7lwaLAt9wwiWZAYdVE1bJizhDPE
+you tube api key
+AIzaSyDn2MOz8IoFgXpoA2APTLePIIO3MOf70y0
 
-https://www.googleapis.com/youtube/v3/videos?id=7lCDEYXw3mM&key=AIzaSyA5_5cy7lwaLAt9wwiWZAYdVE1bJizhDPE
-     &part=snippet,contentDetails,statistics,status
+https://www.googleapis.com/youtube/v3/search?part=snippet&key=AIzaSyDn2MOz8IoFgXpoA2APTLePIIO3MOf70y0
+
+
+<!doctype html>
+<html>
+  <head>
+    <title>Search</title>
+  </head>
+  <body>
+    <div id="buttons">
+      <label> <input id="query" value='cats' type="text"/><button id="search-button" disabled onclick="search()">Search</button></label>
+    </div>
+    <div id="search-container">
+    </div>
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js"></script>
+    <script src="auth.js"></script>
+    <script src="search.js"></script>
+    <script src="https://apis.google.com/js/client.js?onload=googleApiClientReady"></script>
+  </body>
+</html>
