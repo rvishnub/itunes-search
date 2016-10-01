@@ -1,6 +1,8 @@
 $(document).ready(function(){
-    $("button").click(function(){
-		performVideoSearch();
+		$('#myForm').submit(function(event){
+		  event.preventDefault();
+		  target.scrollIntoView();
+		  performVideoSearch();
     });
 });
 
@@ -34,22 +36,22 @@ function performVideoSearch()
 /*lines 23-27 and corresponding code in html are from from pagination plugin from paginationjs.com, MIT License (MIT) Copyright (c) 2014-2048*/
 	
 		
-function displayTable(response)
+function displayTable(searchResults)
 	{
 	var tableText="";
-	for (var vidFieldNum in response)
+	for (var vidFieldNum in searchResults)
 	{
-		var item = response[vidFieldNum];
+		var item = searchResults[vidFieldNum];
 		if (item.id.videoId == null)
 		{
 			item.id.videoId = "N/A";
 		}
 	};
-	for(var vidFieldNum in response) 
+	for(var vidFieldNum in searchResults) 
 	{
-		var item = response[vidFieldNum];
+		var item = searchResults[vidFieldNum];
 
-		tableText += "<table border=1><tr><th>" + item.snippet.title + "</th><th style='text-align:center'>"+ item.id.videoId+"</th><th style='text-align:center'><a href = 'https://www.youtube.com/watch?v="+item.id.videoId+"' target='_blank' >Go to video</a></th><th><button id='player' onclick=playAVideo('"+item.id.videoId+"')>Play Here</button></th></tr>";
+		tableText += "<table border=1><tr><th>" + item.snippet.title + "</th><th style='text-align:center'>"+ item.id.videoId+"</th><th style='text-align:center'><a href = 'https://www.youtube.com/watch?v="+item.id.videoId+"' target='_blank' >Go to video</a></th><th style='align:center'><button id='player' onclick=playAVideo('"+item.id.videoId+"')>Play Here</button></th></tr>";
 	}
 		return tableText;
 	}
@@ -82,7 +84,7 @@ function playVideo(myVideoId)
 
 function playAVideo(videoId)
 {
-	var videoPlayerText = '<iframe id="ytplayer" type="text/html" width="640" height="390" src="https://www.youtube.com/embed/'+videoId+'?autoplay=0" frameborder="1"></iframe>';
+	var videoPlayerText = '<iframe id="ytplayer" type="text/html" width="640" height="390" src="https://www.youtube.com/embed/'+videoId+'?autoplay=1" frameborder="1"></iframe>';
 	document.getElementById("vplayer").innerHTML = videoPlayerText;
 }
 

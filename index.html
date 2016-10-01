@@ -302,15 +302,14 @@
                 </div>
                 <!-- /.row -->
 				
-<form role="form">
-
-	<div class="form-group">
-		<label>Search iTunes</label>
-		<input class="form-control" placeholder="Enter search terms" input type="text" id="term" value="">
-	</div>
-	<button type="button" class="btn btn-default" onclick="performSearch()">Send</button>
-	<button type="reset" class="btn btn-default" onclick="reloadPage()">Reset</button>
-</form>
+				<form id="myForm" role="form">
+					<div class="form-group">
+						<label>Search iTunes</label>
+						<input class="form-control" placeholder="Enter search terms" input type="text" id="term" value="">
+					</div>
+					<button type="button" class="btn btn-default" onclick="performSearch()">Send</button>
+					<button type="reset" class="btn btn-default" onclick="reloadPage()">Reset</button>
+				</form>
 <br>
 <br>
 <br>
@@ -325,7 +324,7 @@
                             <div class="panel-body">
                                 <div class="table-responsive">
                                     <table class="table table-bordered table-hover table-striped">
-                                        <thead>
+                                        <thead id="target">
                                             <tr>
 																																												<th style="text-align:center">Art</th>
                                                 <th style="text-align:center">Artist</th>

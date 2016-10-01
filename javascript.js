@@ -1,9 +1,16 @@
 $(document).ready(function(){
-    $("button").click(function(){
-		performSearch();
+		$('#myForm').submit(function(event){
+		  event.preventDefault();
+		  target.scrollIntoView();
+		  performSearch();
     });
 });
 
+
+
+
+
+  
 function performSearch()
 {
 	var terms = jQuery('#term').val();
@@ -19,33 +26,13 @@ function performSearch()
 		$('#pagination-container').pagination({
 		dataSource: data.results,
 		callback: function(data, pagination) {
-        var html = displayTable(data);
-        $('#data-container').html(html);
+        var tableText = displayTable(data);
+        $('#data-container').html(tableText);
+
     }
 })},})
 }
 /*lines 19-23 from pagination plugin from paginationjs.com, MIT License (MIT) Copyright (c) 2014-2048*/
-
-/* to see list, not table */
-function displayTracks(data)
-{
-	resultList = data.results;
-	songList = "";
-
-	for (key in resultList) 
-	{
-		musicInfo = resultList[key];
-		for (keyitem in musicInfo)
-		{
-			songList = songList + keyitem + ":  "+ musicInfo[keyitem] + "<br>";
-		}
-		songList = songList+"<br><br>";
-	}
-	document.getElementById("songlist").innerHTML = songList;
-}
-
-
-
 
 
 function reloadPage() 
@@ -53,21 +40,21 @@ function reloadPage()
     location.reload();
 }
 
-function displayTable(data) 
+function displayTable(searchResults) 
 {
-    var divText = "";
-	$.each(data, function(index, item)
+    var tableText = "";
+	$.each(searchResults, function(index, item)
 	{
 		if (item.trackPrice <0)
 		{
 			item.trackPrice = "N/A";
 		}
 	});
-    $.each(data, function(index, item){
-        divText += "<table border=1><tr><th>" + "<img src='"+item.artworkUrl60+"'>" +"</th><th>" + item.artistName + "</th><th>"+ item.collectionName+"</th><th>"+ "<a href = '"+item.previewUrl+"' target='_blank'>"+item.trackName+"</a>"+"</th><th style='text-align:center'>" + item.trackPrice+ "</th></tr>";
+    $.each(searchResults, function(index, item){
+        tableText += "<table border=1><tr><th>" + "<img src='"+item.artworkUrl60+"'>" +"</th><th>" + item.artistName + "</th><th>"+ item.collectionName+"</th><th>"+ "<a href = '"+item.previewUrl+"' target='_blank'>"+item.trackName+"</a>"+"</th><th style='text-align:center'>" + item.trackPrice+ "</th></tr>";
     });
-    divText += "</table>";
-    return divText;
+    tableText += "</table>";
+    return tableText;
 }
 
 
