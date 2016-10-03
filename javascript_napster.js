@@ -2,36 +2,42 @@ $(document).ready(function(){
 		$('#myForm').submit(function(event){
 		  event.preventDefault();
 		  target.scrollIntoView();
-		  performSearch();
+		  performNapsterSearch();
     });
 });
 
-
- 
-function performSearch()
+function performNapsterSearch()
 {
-	var terms = jQuery('#term').val();
-	if (terms==""){
+	var q = jQuery('#term').val();
+	alert(q);
+	if (q=="")
+	{
 		alert("Please enter a valid search item.");
 	};
+
 	$.ajax({
-	"url": "https://itunes.apple.com/search?", 
-	"type": "GET",
-	"dataType": "JSONP",
-	"data": {"term": terms},
-	"success": function(data) {
-		$('#pagination-container').pagination({
-		dataSource: data.results,
-		callback: function(data, pagination) {
-        var tableText = displayTable(data);
-        $('#data-container').html(tableText);
-
-    }
-})},})
+		"url": "https://api.napster.com/search?client_id=MTJhNWNlZDQtMTYzMi00MjU5LWE2NDgtYTVjZDIyMTAxZTI3",
+		"type": "GET",
+		"dataType": "JSONP",
+		"data": {"q": q},
+		
+		"success": function(data) 
+		{
+			alert(data);
+			$('#pagination-container').pagination({
+			dataSource: data.items,
+			callback: function(data, pagination) {
+			var tableText = displayTable(data);
+			$('#data-container').html(tableText);
+			}
+		})
+	},
+}) 
 }
-/*lines 19-23 from pagination plugin from paginationjs.com, MIT License (MIT) Copyright (c) 2014-2048*/
 
-
+/*lines 23-27 and corresponding code in html are from from pagination plugin from paginationjs.com, MIT License (MIT) Copyright (c) 2014-2048*/
+	
+		
 function reloadPage() 
 {
     location.reload();
@@ -53,11 +59,3 @@ function displayTable(searchResults)
     tableText += "</table>";
     return tableText;
 }
-
-
-
-
-
-
-
-
